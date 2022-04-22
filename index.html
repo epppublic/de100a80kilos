@@ -33,41 +33,36 @@
 
                     medata.Items.forEach(post => {
                         const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(post)
-                        console.log(unmarshallItem)
+                        // console.log(unmarshallItem)
+                        // console.log(Object.getOwnPropertyNames(unmarshallItem))
 
-                        // ATTEMPT TO PERFORM TRANSFORM UNMARSHALL TO ARRAY, THEN LOOP ARRAY
-                        // var unmarshallarray = unmarshallItem._embedded.enheter;
-                        // var table = "";
-                        //     for (var i = 0; i < unmarshallarray.length; i++) {
-                        //         console.log(unmarshallarray[i].navn)
+                        // for (let posts of Object.keys(unmarshallItem))
+                        // {
+                        console.log(unmarshallItem.entrydate)
+                        document.getElementById("container").insertAdjacentHTML('beforeend', JSON.stringify(unmarshallItem.entrydate, null, 4));
 
-                        //         //Creating table
-                        //         var rowData = unmarshallarray[i];
-
-                        //         //Store the value in table
-                        //         table+= rowData;
-
-
-                        //     }
-                        // document.getElementById("container").innerHTML = table;
-
-                        // THIS WORKS -_-
-                        for (let posts of Object.keys(unmarshallItem))
-                        {
-                            
-                        // const keys = Object.keys(unmarshallItem);
+                        // const keys = Object.getOwnPropertyNames(unmarshallItem);
                         // for (let i=0; i < keys.length; i++){
-                        //     const key = keys[i];
+                        //     // const key = keys[i]
+                        //     console.log(keys[i]);
+                        //     }
+                        // var final = {}
+                        // for (var key in unmarshallItem){
                             
+                        //     console.log(key['entrydate'])
+                            
+                            // final[key] = {"title" : unmarshallItem[key]["title"]}
+                            // }
+                            // console.log(final);
 
-                            var entrydt = unmarshallItem[posts]
-                            console.log(posts, entrydt);
+                            // var entrydt = unmarshallItem[posts.entrydate]
+                            // console.log(posts, entrydt);
                             // console.log(key, unmarshallItem[key]);
                             
 
                         //     // document.getElementById("container").innerHTML = JSON.stringify(entrydt, null, 4);
-                            document.getElementById("container").insertAdjacentHTML('beforeend', JSON.stringify(entrydt, null, 4));
-                        }
+                        //     document.getElementById("container").insertAdjacentHTML('beforeend', JSON.stringify(entrydt, null, 4));
+                        // }
                         // unmarshallItem.entrydate.forEach(firstitem => {
                         //     const dt = document.createElement('p')
                         //     document.getElementById("container").innerHTML = JSON.stringify(firstitem.entrydate, null, 4);
