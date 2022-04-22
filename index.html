@@ -19,7 +19,7 @@
                     <li><a href="#">Fotos</a></li>
                 </ul>
             </nav>
-        <div id="container"></div>
+        <ul id="container"></ul>
         <script src="./node_modules/axios/dist/axios.min.js"></script>
         <script src="referenceaws.js"></script>
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1117.0.min.js"></script>
@@ -29,17 +29,19 @@
                 .then (response => {
                     // console.log(response.data)
                     var medata = response.data
-
-
                     medata.Items.forEach(post => {
                         const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(post)
                         // console.log(unmarshallItem)
                         // console.log(Object.getOwnPropertyNames(unmarshallItem))
 
-                        // for (let posts of Object.keys(unmarshallItem))
-                        // {
-                        console.log(unmarshallItem.entrydate)
-                        document.getElementById("container").insertAdjacentHTML('beforeend', JSON.stringify(unmarshallItem.entrydate, null, 4));
+                        for (let posts of Object.keys(unmarshallItem))
+                                               {
+                        console.log(new Date(unmarshallItem.entrydate).toLocaleDateString("en-US"))
+                        var postdate = new Date(unmarshallItem.entrydate)
+                        // document.getElementById("container").insertAdjacentHTML('beforeend', postdate);
+                        document.getElementById("container").innerHTML = postdate.toLocaleDateString("en-US");
+                        }
+                        
 
                         // const keys = Object.getOwnPropertyNames(unmarshallItem);
                         // for (let i=0; i < keys.length; i++){
