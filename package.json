@@ -1,0 +1,27 @@
+{
+  "name": "de100a80kilos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epppublic/de100a80kilos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/epppublic/de100a80kilos/issues"
+  },
+  "homepage": "https://github.com/epppublic/de100a80kilos#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1117.0",
+    "axios": "^0.26.1",
+    "dynamo-converters": "^6.1.2",
+    "dynamodb-converter": "^1.0.4",
+    "requirejs": "^2.3.6"
+  },
+  "type": "module"
+}

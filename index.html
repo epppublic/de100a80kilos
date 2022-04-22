@@ -3,10 +3,140 @@
 
 <head>
     <title>de100a80kilos</title>
+    <meta name="description" content="This is personal fitness progress tracker">
+    <meta name="keywords" content="fitness tracker notebook"> 
 </head>
 
 <body>
-    Primera version de prueba de100a80kilos
-</body>
+    <div class="navbar">
+        <div class="container">
+            <a href="#">de100a80kilos</a>
+            
+            <nav>
+                <ul class="primary-nav">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Diario</a></li>
+                    <li><a href="#">Fotos</a></li>
+                </ul>
+            </nav>
+        <div id="container"></div>
+        <script src="./node_modules/axios/dist/axios.min.js"></script>
+        <script src="referenceaws.js"></script>
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1117.0.min.js"></script>
+        <script>
+            
+            axios.get('https://vdkiwfxfkk.execute-api.us-east-1.amazonaws.com/prod/getitems/de100a80kilosdiario')
+                .then (response => {
+                    // console.log(response.data)
+                    var medata = response.data
 
+
+                    medata.Items.forEach(post => {
+                        const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(post)
+                        console.log(unmarshallItem)
+
+                        // ATTEMPT TO PERFORM TRANSFORM UNMARSHALL TO ARRAY, THEN LOOP ARRAY
+                        // var unmarshallarray = unmarshallItem._embedded.enheter;
+                        // var table = "";
+                        //     for (var i = 0; i < unmarshallarray.length; i++) {
+                        //         console.log(unmarshallarray[i].navn)
+
+                        //         //Creating table
+                        //         var rowData = unmarshallarray[i];
+
+                        //         //Store the value in table
+                        //         table+= rowData;
+
+
+                        //     }
+                        // document.getElementById("container").innerHTML = table;
+
+                        // THIS WORKS -_-
+                        for (let posts of Object.keys(unmarshallItem))
+                        {
+                            
+                        // const keys = Object.keys(unmarshallItem);
+                        // for (let i=0; i < keys.length; i++){
+                        //     const key = keys[i];
+                            
+
+                            var entrydt = unmarshallItem[posts]
+                            console.log(posts, entrydt);
+                            // console.log(key, unmarshallItem[key]);
+                            
+
+                        //     // document.getElementById("container").innerHTML = JSON.stringify(entrydt, null, 4);
+                            document.getElementById("container").insertAdjacentHTML('beforeend', JSON.stringify(entrydt, null, 4));
+                        }
+                        // unmarshallItem.entrydate.forEach(firstitem => {
+                        //     const dt = document.createElement('p')
+                        //     document.getElementById("container").innerHTML = JSON.stringify(firstitem.entrydate, null, 4);
+                        })
+                        
+                        // dt.innerHTML = post.entrydate;
+                        
+                    })
+
+
+                    // THIS WORKS
+                    // const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(response.data.Items); 
+                    // document.getElementById("container").innerHTML = JSON.stringify(unmarshallItem, null, 4);
+                    // console.log(unmarshallItem)
+                    // ATTEMPT OF LOOP ARRAY
+                    // response.data.forEach(post => {
+                    //     const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(post);
+                    //     const dt = document.createElement('p');
+                    //     dt.innerText = JSON.stringify(post.entrydate);
+                        
+                    // });
+                
+                
+
+                        // document.getElementById("container").innerHTML = JSON.stringify(unmarshallItem, null, 4);
+                        // console.log(JSON.stringify(unmarshallItem))
+                
+                    // THIS WORKS!!! 
+                    // const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(response.data.Items[0])
+                    // console.log(JSON.stringify(unmarshallItem))
+                    // document.getElementById("container").innerHTML = JSON.stringify(unmarshallItem, null, 4);
+                 
+
+        </script>
+       
+
+        </script>
+        <!-- <script type="text/javascript" src="http://requirejs.org/docs/release/2.3.2/minified/require.js"></script> -->
+        
+        <!-- <script type="module" src="./dynamoconverter.js"></script> -->
+        <!-- <script src="./node_modules/aws-sdk/clients/dynamodb.js"></script> -->
+        
+        <!-- <script type="module">
+             -->
+
+
+                <!-- // axios.get('https://vdkiwfxfkk.execute-api.us-east-1.amazonaws.com/prod/getitems/de100a80kilosdiario')
+                // .then (response => {
+                //     console.log(response.data)
+                //     var newdata = ddbConverter.unconvert(response.data)
+                //     console.log(newdata)
+                //     document.getElementById("container").innerHTML = JSON.stringify(newdata, null, 4);
+                // }
+                // );
+            // const { DynamoDB } = require(['@aws-sdk/client-dynamodb'], function(foo) {});
+            // const { marshall, unmarshall } = require(['@aws-sdk/util-dynamodb'], function(foo) {});
+            // const ddbConverter = require(['./node_modules/dynamodb-converter/dynamodb-converter.js'], function(foo) {})
+            //API to get all the items in DynamoDB for daily entries //
+            // axios.get('https://vdkiwfxfkk.execute-api.us-east-1.amazonaws.com/prod/getitems/de100a80kilosdiario')
+            //     .then (response => {
+            //         console.log(response.data)
+                 
+            //     }
+            //     ); -->
+                
+                    
+        <!-- </script> -->
+        </div>
+
+    </div>
+</body>
 </html>
