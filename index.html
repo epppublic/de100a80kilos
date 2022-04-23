@@ -20,6 +20,7 @@
                 </ul>
             </nav>
         <ul id="container_dates"></ul>
+        <div id="new_container_dates"> </div>
         <script src="./node_modules/axios/dist/axios.min.js"></script>
         <script src="referenceaws.js"></script>
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1117.0.min.js"></script>
@@ -40,9 +41,9 @@
                         // Create array for further sorting
                         arr_dates.push(postdate)
                         
-                        dt.innerText = postdate
-                        // Append to unsorted list:
-                        container_dates.appendChild(dt)   
+                        // dt.innerText = postdate
+                        // // Append to unsorted list:
+                        // container_dates.appendChild(dt)   
       
                     })
                     // Sort Entry dates
@@ -54,6 +55,24 @@
                                                 return date2 - date1;
                                             });
                     console.log(sorted_arr_dates)
+                    function makeUL(array) {
+                    // Create the list element:
+                    var list = document.createElement('ul');
+
+                    for (var i = 0; i < array.length; i++) {
+                        // Create the list item:
+                        var item = document.createElement('li');
+
+                        // Set its contents:
+                        item.appendChild(document.createTextNode(array[i]));
+
+                        // Add it to the list:
+                        list.appendChild(item);
+                    }
+                        // Finally, return the constructed list:
+                        return list;
+                    }
+                    new_container_dates.appendChild(makeUL(sorted_arr_dates));
                  
                 })
             
