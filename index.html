@@ -20,7 +20,7 @@
                 </ul>
             </nav>
         <ul id="container_dates"></ul>
-        <div id="new_container_dates"> </div>
+        <ul id="new_container_dates"> </ul>
         <script src="./node_modules/axios/dist/axios.min.js"></script>
         <script src="referenceaws.js"></script>
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1117.0.min.js"></script>
@@ -31,30 +31,87 @@
                     // console.log(response.data)
                     var medata = response.data
                     var arr_dates = []
+                    
+
                     medata.Items.forEach(post => {
                         const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(post)
                         // console.log(unmarshallItem)
                         // console.log(Object.getOwnPropertyNames(unmarshallItem))
                                                 
-                        const dt = document.createElement('li');
+                        // const dt = document.createElement('li');
                         var postdate = new Date(unmarshallItem.entrydate).toLocaleDateString("en-US")
+                        var posttitle = unmarshallItem.title
+                        var arrobj = {
+                        fecha: "",
+                        titulo: ""
+                                 }
+                        // var date_title = postdate + ': ' + posttitle
                         // Create array for further sorting
-                        arr_dates.push(postdate)
+                        // arr_dates.push(date_title)
                         
+                        // arr_dates["fecha"] = postdate
+                        // arr_dates["titulo"] = posttitle
+                        arrobj.fecha = postdate
+                        arrobj.titulo = posttitle
+                        arr_dates.push(arrobj)
+                        
+
                         // dt.innerText = postdate
                         // // Append to unsorted list:
                         // container_dates.appendChild(dt)   
       
                     })
+                    // console.log(arr_dates)
+                    // Sort by key fecha
+                    
+                    var test_sort_arr = arr_dates.sort(function(a, b) {
+                                var c = new Date(a.fecha);
+                                var d = new Date(b.fecha);
+                                return d-c;
+                            });
+                    // var test_sort_arr = sort_by_key(arr_dates, "fecha")
+
+                    // Sort by Entry dates
+                    // var test_sort_arr = arr_dates.sort(function(a, b) {
+                    //     var keyA = new Date(a.updated_at),
+                    //         keyB = new Date(b.updated_at);
+                    //     // Compare the 2 dates
+                    //     if (keyA < keyB) return -1;
+                    //     if (keyA > keyB) return 1;
+                    //     return 0;
+                    //     });
+
+                    // console.log(test_sort_arr);
+
                     // Sort Entry dates
-                    console.log(arr_dates)
-                    var sorted_arr_dates = arr_dates.sort(function(a, b){
-                                                const date1 = new Date(a)
-                                                const date2 = new Date(b)
+                    // console.log(arr_dates)
+
+                    // var sorted_arr_dates = arr_dates.sort(function(a, b){
+                    //                             const date1 = new Date(a)
+                    //                             const date2 = new Date(b)
                                                 
-                                                return date2 - date1;
-                                            });
-                    console.log(sorted_arr_dates)
+                    //                             return date2 - date1;
+                    //                         });
+                    // console.log(sorted_arr_dates)
+
+
+                    // let list = document.getElementById("new_container_dates");
+
+                    // for (const [key, value] of Object.entries(test_sort_arr)) {
+                    //     let li = document.createElement("li");
+                    //     li.innerText = JSON.stringify(key);
+                    //     list.appendChild(li);
+                    //         console.log(JSON.stringify(value));
+                    //         }
+                            
+                    // test_sort_arr.forEach((item)=>{
+                    //     let li = document.createElement("li");
+                    //     li.innerText = item;
+                    //     list.appendChild(li);
+                    //     })
+
+                    
+
                     function makeUL(array) {
                     // Create the list element:
                     var list = document.createElement('ul');
@@ -64,7 +121,9 @@
                         var item = document.createElement('li');
 
                         // Set its contents:
-                        item.appendChild(document.createTextNode(array[i]));
+                        
+                        item.appendChild(document.createTextNode(array[i].fecha + ': ' + array[i].titulo) );
+                        console.log(JSON.stringify(array[i].fecha))
 
                         // Add it to the list:
                         list.appendChild(item);
@@ -72,7 +131,7 @@
                         // Finally, return the constructed list:
                         return list;
                     }
-                    new_container_dates.appendChild(makeUL(sorted_arr_dates));
+                    new_container_dates.appendChild(makeUL(test_sort_arr));
                  
                 })
             
