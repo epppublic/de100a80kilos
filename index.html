@@ -19,7 +19,7 @@
                     <li><a href="#">Fotos</a></li>
                 </ul>
             </nav>
-        <ul id="container"></ul>
+        <ul id="container_dates"></ul>
         <script src="./node_modules/axios/dist/axios.min.js"></script>
         <script src="referenceaws.js"></script>
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1117.0.min.js"></script>
@@ -29,108 +29,35 @@
                 .then (response => {
                     // console.log(response.data)
                     var medata = response.data
+                    var arr_dates = []
                     medata.Items.forEach(post => {
                         const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(post)
-                        console.log(unmarshallItem)
+                        // console.log(unmarshallItem)
                         // console.log(Object.getOwnPropertyNames(unmarshallItem))
                                                 
-                        const dt = document.createElement('ul');
+                        const dt = document.createElement('li');
                         var postdate = new Date(unmarshallItem.entrydate).toLocaleDateString("en-US")
+                        // Create array for further sorting
+                        arr_dates.push(postdate)
+                        
                         dt.innerText = postdate
-                        // Append to body:
-                        document.body.appendChild(dt);
-                        
-                        // for (let posts of Object.keys(unmarshallItem))
-                        //                        {
-                        //                         // console.log(unmarshallItem)
-                        //                         // var elementsencero = Object.values(unmarshallItem)[0]
-                        //                         // console.log(elementsencero.length)
-
-                        //                         const dt = document.createElement('ul');
-                        //                         var postdate = new Date(unmarshallItem.entrydate).toLocaleDateString("en-US")
-                        //                         dt.innerText = postdate
-                        //                         // Append to body:
-                        //                         document.body.appendChild(dt);
-                        //                         // console.log(Object.values(unmarshallItem)[0]);
-                        //                         // console.log(new Date(unmarshallItem.entrydate).toLocaleDateString("en-US"))
-                        
-                   
-                        // document.getElementById("container").innerHTML = elementsencero
-                        // document.getElementById("container").insertAdjacentHTML('beforeend', elementsencero);
-                        // document.getElementById("container").innerHTML = item_dates
-
-                        // document.getElementById("container").innerHTML = postdate.toLocaleDateString("en-US");
-
-                        
-                        // try{throw postdate}
-                        // catch(postdatepostdate) {
-                        //     setTimeout(function(){
-                        //         document.getElementById("container").innerHTML = postdate.toLocaleDateString("en-US");
-                        //         console.log(postdatepostdate);
-                        //     },1000);
-                        // }
-
-                        // var postdate = new Date(unmarshallItem.entrydate)
-                        // document.getElementById("container").insertAdjacentHTML('beforeend', postdate);
-                        
-                        // }
-                        
-
-                        // const keys = Object.getOwnPropertyNames(unmarshallItem);
-                        // for (let i=0; i < keys.length; i++){
-                        //     // const key = keys[i]
-                        //     console.log(keys[i]);
-                        //     }
-                        // var final = {}
-                        // for (var key in unmarshallItem){
-                            
-                        //     console.log(key['entrydate'])
-                            
-                            // final[key] = {"title" : unmarshallItem[key]["title"]}
-                            // }
-                            // console.log(final);
-
-                            // var entrydt = unmarshallItem[posts.entrydate]
-                            // console.log(posts, entrydt);
-                            // console.log(key, unmarshallItem[key]);
-                            
-
-                        //     // document.getElementById("container").innerHTML = JSON.stringify(entrydt, null, 4);
-                        //     document.getElementById("container").insertAdjacentHTML('beforeend', JSON.stringify(entrydt, null, 4));
-                        // }
-                        // unmarshallItem.entrydate.forEach(firstitem => {
-                        //     const dt = document.createElement('p')
-                        //     document.getElementById("container").innerHTML = JSON.stringify(firstitem.entrydate, null, 4);
-                        // })
-                        
-                        // dt.innerHTML = post.entrydate;
-                        
+                        // Append to unsorted list:
+                        container_dates.appendChild(dt)   
+      
                     })
-
-
-                    // THIS WORKS
-                    // const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(response.data.Items); 
-                    // document.getElementById("container").innerHTML = JSON.stringify(unmarshallItem, null, 4);
-                    // console.log(unmarshallItem)
-                    // ATTEMPT OF LOOP ARRAY
-                    // response.data.forEach(post => {
-                    //     const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(post);
-                    //     const dt = document.createElement('p');
-                    //     dt.innerText = JSON.stringify(post.entrydate);
-                        
-                    // });
-                
-                
-
-                        // document.getElementById("container").innerHTML = JSON.stringify(unmarshallItem, null, 4);
-                        // console.log(JSON.stringify(unmarshallItem))
-                
-                    // THIS WORKS!!! 
-                    // const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(response.data.Items[0])
-                    // console.log(JSON.stringify(unmarshallItem))
-                    // document.getElementById("container").innerHTML = JSON.stringify(unmarshallItem, null, 4);
+                    // Sort Entry dates
+                    console.log(arr_dates)
+                    var sorted_arr_dates = arr_dates.sort(function(a, b){
+                                                const date1 = new Date(a)
+                                                const date2 = new Date(b)
+                                                
+                                                return date2 - date1;
+                                            });
+                    console.log(sorted_arr_dates)
                  
                 })
+            
+                
                 </script>
 
         </div>
