@@ -23,7 +23,8 @@
         </div>
     </div>
     <div class="second-bar">
-        <div id="new_container_dates"> </div>
+        <div id="container_titulos">
+        </div>
         <script src="./node_modules/axios/dist/axios.min.js"></script>
         <script src="referenceaws.js"></script>
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1117.0.min.js"></script>
@@ -40,13 +41,16 @@
 
                         var postdate = new Date(unmarshallItem.entrydate).toLocaleDateString("en-US")
                         var posttitle = unmarshallItem.title
+                        var posttext = unmarshallItem.textnote.values
                         var arrobj = {
                             fecha: "",
-                            titulo: ""
+                            titulo: "",
+                            texto: ""
                         }
 
                         arrobj.fecha = postdate
                         arrobj.titulo = posttitle
+                        arrobj.texto = posttext
                         arr_dates.push(arrobj)
 
 
@@ -57,27 +61,54 @@
                         var d = new Date(b.fecha);
                         return d - c;
                     });
+                    console.log(test_sort_arr)
+
+                    // const prepareUL = (root, arr) => {
+                    //     let ul = document.createElement('ul');
+                    //     let li;
+                    //     root.appendChild(ul);
+                    //     arr.forEach(function(item) {
+                    //         if (Array.isArray(item)) {
+                    //             prepareUL(li, item);
+                    //             return;
+                    //         };
+                    //         li = document.createElement('li');
+                    //         li.appendChild(document.createTextNode(item));
+                    //         ul.appendChild(li);
+                    //         console.log(ul.appendChild(li))
+                    //     });
+                    // }
+                    // const div = document.getElementById('container_titulos');
+                    // prepareUL(div, test_sort_arr);
+
 
                     function makeUL(array) {
                         // Create the list element:
-                        var list = document.createElement('ul');
+
+                        var list_titulos = document.createElement('ul');
 
                         for (var i = 0; i < array.length; i++) {
                             // Create the list item:
-                            var item = document.createElement('li');
+                            var item_titulo = document.createElement('li');
+                            var item_fecha = document.createElement('li');
+                            var item_texto = document.createElement('li');
 
                             // Set its contents:
-
-                            item.appendChild(document.createTextNode(array[i].fecha + ': ' + array[i].titulo));
-                            console.log(JSON.stringify(array[i].fecha))
+                            item_titulo.appendChild(document.createTextNode(array[i].titulo));
+                            item_fecha.appendChild(document.createTextNode(array[i].fecha));
+                            item_texto.appendChild(document.createTextNode(array[i].texto));
 
                             // Add it to the list:
-                            list.appendChild(item);
+                            list_titulos.appendChild(item_titulo);
+                            list_titulos.appendChild(item_fecha);
+                            list_titulos.appendChild(item_texto);
+
                         }
                         // Finally, return the constructed list:
-                        return list;
+                        return list_titulos;
                     }
-                    new_container_dates.appendChild(makeUL(test_sort_arr));
+                    container_titulos.appendChild(makeUL(test_sort_arr));
+
 
                 })
         </script>
