@@ -11,7 +11,8 @@
 <body>
     <div class="navbar">
         <div class="container">
-            <a class="logo" href="#">de100a80kilos</a>
+            <a class="logo" href="https://www.instagram.com/de100a80kilos/" target="_blank">de100a80kilos</a>
+
             <img id="menuh" class="mobile-menu" src="images/icons8-menu.svg" alt="">
             <nav>
                 <ul class="primary-nav">
@@ -21,10 +22,15 @@
                 </ul>
             </nav>
         </div>
+        <div>
+            <p class="presentacion"> Esta página web fue elaborada artesanal y empíricamente. Todo lo que ven aquí requirió horas y días de interminables intentos porque todo funcionara. Aun la simpleza de este diseño me ha generado más satisfacción que todos los "logros" laborales.
+                Seguiré mejorando la página con el único afán de hacerla más fácila de navegar.</p>
+            <p class="presentacion-objetivo"> Esta página tiene como objetivo recopilar el progreso, las dudas y frustraciones de alguien que se ha propuesto acercarse más a una vida saluble y activa. La obsesión por verse bien de cara a un proceso a largo plazo de real cambio de hábitos
+                y costumbres son parte de la temática. Al final, todo esto es para recordarme de donde vengo. </p>
+        </div>
     </div>
     <div class="second-bar">
-        <div id="container_titulos">
-        </div>
+        <div id="container_titulos"></div>
         <script src="./node_modules/axios/dist/axios.min.js"></script>
         <script src="referenceaws.js"></script>
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1117.0.min.js"></script>
@@ -63,35 +69,25 @@
                     });
                     console.log(test_sort_arr)
 
-                    // const prepareUL = (root, arr) => {
-                    //     let ul = document.createElement('ul');
-                    //     let li;
-                    //     root.appendChild(ul);
-                    //     arr.forEach(function(item) {
-                    //         if (Array.isArray(item)) {
-                    //             prepareUL(li, item);
-                    //             return;
-                    //         };
-                    //         li = document.createElement('li');
-                    //         li.appendChild(document.createTextNode(item));
-                    //         ul.appendChild(li);
-                    //         console.log(ul.appendChild(li))
-                    //     });
-                    // }
-                    // const div = document.getElementById('container_titulos');
-                    // prepareUL(div, test_sort_arr);
-
-
                     function makeUL(array) {
                         // Create the list element:
 
-                        var list_titulos = document.createElement('ul');
+                        var list_titulos = document.createElement('div');
 
                         for (var i = 0; i < array.length; i++) {
                             // Create the list item:
-                            var item_titulo = document.createElement('li');
-                            var item_fecha = document.createElement('li');
-                            var item_texto = document.createElement('li');
+                            var item_titulo = document.createElement('p');
+                            item_titulo.className = "class-titulo";
+                            item_titulo.id = "idt" + i;
+
+                            var item_fecha = document.createElement('p');
+                            item_fecha.className = "class-fecha"
+                            item_fecha.id = "idf" + i;
+
+                            var item_texto = document.createElement('p');
+                            item_texto.className = "class-texto"
+                            item_texto.id = "idx" + i;
+
 
                             // Set its contents:
                             item_titulo.appendChild(document.createTextNode(array[i].titulo));
