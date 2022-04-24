@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital@1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap");
 body {
-  background: #f6f5e6;
+  background: #ffffff;
   margin-right: 30%;
   margin-top: 5%;
   margin-left: 20%;
@@ -11,28 +11,28 @@ body {
 
 .presentacion {
   font-size: 0.8em;
-  font-family: 'Libre Bodoni';
-  color: gray;
+  font-family: 'Roboto Mono';
+  color: black;
   margin-right: 40%;
 }
 
 .presentacion-objetivo {
   font-size: 0.8em;
-  font-family: 'Libre Bodoni';
-  color: gray;
+  font-family: 'Roboto Mono';
+  color: black;
   margin-right: 40%;
 }
 
 .navbar {
   background: white;
-  padding: 1em;
 }
 
 .navbar .logo {
   text-decoration: none;
   font-weight: bold;
   color: black;
-  font-size: 3em;
+  font-size: 4em;
+  margin-left: 0;
 }
 
 .navbar nav {
@@ -52,12 +52,20 @@ body {
 }
 
 .class-titulo {
-  font-weight: bold;
-  font-size: 1.3em;
+  font-weight: bolder;
+  font-size: 1.4em;
+  letter-spacing: 0.2ex;
+  margin-bottom: 0;
 }
 
 .class-fecha {
   font-style: italic;
   font-size: smaller;
+  margin-top: 0%;
+}
+
+.class-texto {
+  text-justify: distribute-all-lines;
+  margin-bottom: 10%;
 }
 /*# sourceMappingURL=main.css.map */
