@@ -4,14 +4,15 @@
 <head>
     <title>de100a80kilos</title>
     <meta name="description" content="This is personal fitness progress tracker">
-    <meta name="keywords" content="fitness tracker notebook"> 
+    <meta name="keywords" content="fitness tracker notebook">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
     <div class="navbar">
         <div class="container">
-            <a href="#">de100a80kilos</a>
-            
+            <a class="logo" href="#">de100a80kilos</a>
+            <img id="menuh" class="mobile-menu" src="images/icons8-menu.svg" alt="">
             <nav>
                 <ul class="primary-nav">
                     <li><a href="https://www.instagram.com/de100a80kilos/" target="_blank">Instagram</a></li>
@@ -19,127 +20,70 @@
                     <!-- <li><a href="#">Fotos</a></li> -->
                 </ul>
             </nav>
-        <ul id="container_dates"></ul>
-        <ul id="new_container_dates"> </ul>
+        </div>
+    </div>
+    <div class="second-bar">
+        <div id="new_container_dates"> </div>
         <script src="./node_modules/axios/dist/axios.min.js"></script>
         <script src="referenceaws.js"></script>
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1117.0.min.js"></script>
         <script>
-            
             axios.get('https://vdkiwfxfkk.execute-api.us-east-1.amazonaws.com/prod/getitems/de100a80kilosdiario')
-                .then (response => {
-                    // console.log(response.data)
+                .then(response => {
+
                     var medata = response.data
                     var arr_dates = []
-                    
+
 
                     medata.Items.forEach(post => {
                         const unmarshallItem = AWS.DynamoDB.Converter.unmarshall(post)
-                        // console.log(unmarshallItem)
-                        // console.log(Object.getOwnPropertyNames(unmarshallItem))
-                                                
-                        // const dt = document.createElement('li');
+
                         var postdate = new Date(unmarshallItem.entrydate).toLocaleDateString("en-US")
                         var posttitle = unmarshallItem.title
                         var arrobj = {
-                        fecha: "",
-                        titulo: ""
-                                 }
-                        // var date_title = postdate + ': ' + posttitle
-                        // Create array for further sorting
-                        // arr_dates.push(date_title)
-                        
-                        // arr_dates["fecha"] = postdate
-                        // arr_dates["titulo"] = posttitle
+                            fecha: "",
+                            titulo: ""
+                        }
+
                         arrobj.fecha = postdate
                         arrobj.titulo = posttitle
                         arr_dates.push(arrobj)
-                        
 
-                        // dt.innerText = postdate
-                        // // Append to unsorted list:
-                        // container_dates.appendChild(dt)   
-      
+
                     })
-                    // console.log(arr_dates)
-                    // Sort by key fecha
-                    
+
                     var test_sort_arr = arr_dates.sort(function(a, b) {
-                                var c = new Date(a.fecha);
-                                var d = new Date(b.fecha);
-                                return d-c;
-                            });
-                    // var test_sort_arr = sort_by_key(arr_dates, "fecha")
-
-                    // Sort by Entry dates
-                    // var test_sort_arr = arr_dates.sort(function(a, b) {
-                    //     var keyA = new Date(a.updated_at),
-                    //         keyB = new Date(b.updated_at);
-                    //     // Compare the 2 dates
-                    //     if (keyA < keyB) return -1;
-                    //     if (keyA > keyB) return 1;
-                    //     return 0;
-                    //     });
-
-                    // console.log(test_sort_arr);
-
-                    // Sort Entry dates
-                    // console.log(arr_dates)
-
-                    // var sorted_arr_dates = arr_dates.sort(function(a, b){
-                    //                             const date1 = new Date(a)
-                    //                             const date2 = new Date(b)
-                                                
-                    //                             return date2 - date1;
-                    //                         });
-                    // console.log(sorted_arr_dates)
-
-
-                    // let list = document.getElementById("new_container_dates");
-
-                    // for (const [key, value] of Object.entries(test_sort_arr)) {
-                    //     let li = document.createElement("li");
-                    //     li.innerText = JSON.stringify(key);
-                    //     list.appendChild(li);
-                    //         console.log(JSON.stringify(value));
-                    //         }
-                            
-                    // test_sort_arr.forEach((item)=>{
-                    //     let li = document.createElement("li");
-                    //     li.innerText = item;
-                    //     list.appendChild(li);
-                    //     })
-
-                    
+                        var c = new Date(a.fecha);
+                        var d = new Date(b.fecha);
+                        return d - c;
+                    });
 
                     function makeUL(array) {
-                    // Create the list element:
-                    var list = document.createElement('ul');
+                        // Create the list element:
+                        var list = document.createElement('ul');
 
-                    for (var i = 0; i < array.length; i++) {
-                        // Create the list item:
-                        var item = document.createElement('li');
+                        for (var i = 0; i < array.length; i++) {
+                            // Create the list item:
+                            var item = document.createElement('li');
 
-                        // Set its contents:
-                        
-                        item.appendChild(document.createTextNode(array[i].fecha + ': ' + array[i].titulo) );
-                        console.log(JSON.stringify(array[i].fecha))
+                            // Set its contents:
 
-                        // Add it to the list:
-                        list.appendChild(item);
-                    }
+                            item.appendChild(document.createTextNode(array[i].fecha + ': ' + array[i].titulo));
+                            console.log(JSON.stringify(array[i].fecha))
+
+                            // Add it to the list:
+                            list.appendChild(item);
+                        }
                         // Finally, return the constructed list:
                         return list;
                     }
                     new_container_dates.appendChild(makeUL(test_sort_arr));
-                 
-                })
-            
-                
-                </script>
 
-        </div>
+                })
+        </script>
 
     </div>
+
 </body>
+
 </html>

@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+body {
+    background: #f6f5e6;
+    margin: 0;
+    font-family: 'Open Sans';
+}
+
+.navbar {
+    background: white;
+    padding: 1em;
+    .logo {
+        text-decoration: none;
+        font-weight: bold;
+        color: black;
+        font-size: 2em;
+    }
+    nav {
+        display: none;
+    }
+    .container {
+        display: flex;
+        place-content: space-between;
+    }
+    .mobile-menu {
+        cursor: pointer;
+    }
+}
